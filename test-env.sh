@@ -128,7 +128,7 @@ EOF
     depends_on:
       - mediamtx
     volumes:
-      - "\${VIDEOS_FOLDER}:/videos"
+      - "$FAKE_STREAMS_PATH:/videos"
     command: >
       -re -stream_loop -1 -i "/videos/$base"
       -vcodec libx264 -preset veryfast -tune zerolatency
