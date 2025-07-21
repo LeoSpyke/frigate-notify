@@ -147,6 +147,17 @@ func main() {
 		}
 	}
 
+	// Loop & watch for cameras going up&down
+	if config.ConfigData.Alerts.CamerasHealthcheck.Enabled {
+		log.Info().Msg("Camera healthcheck probing enabled.")
+		go func() {
+			for {
+				// todo: implement healthcheck logic
+				time.Sleep(time.Duration(config.ConfigData.Alerts.CamerasHealthcheck.Period) * time.Second)
+			}
+		}()
+	}
+
 	// Connect MQTT
 	if config.ConfigData.Frigate.MQTT.Enabled {
 		log.Debug().Msg("Connecting to MQTT Server...")
