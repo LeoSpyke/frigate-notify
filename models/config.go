@@ -49,23 +49,24 @@ type Cameras struct {
 }
 
 type Alerts struct {
-	General      General      `koanf:"general" json:"general,omitempty" doc:"Common alert settings"`
-	Quiet        Quiet        `koanf:"quiet" json:"quiet,omitempty" doc:"Alert quiet periods"`
-	Zones        Zones        `koanf:"zones" json:"zones,omitempty" doc:"Allow/Block zones from alerting"`
-	Labels       Labels       `koanf:"labels" json:"labels,omitempty" doc:"Allow/Block labels from alerting"`
-	SubLabels    Labels       `koanf:"sublabels" json:"sublabels,omitempty" doc:"Allow/Block sublabels from alerting"`
-	LicensePlate LicensePlate `koanf:"license_plate" json:"license_plate,omitempty" doc:"License plate recognition settings"`
-	AppriseAPI   []AppriseAPI `koanf:"apprise_api" json:"apprise_api,omitempty" doc:"Apprise API notification settings"`
-	Discord      []Discord    `koanf:"discord" json:"discord,omitempty" doc:"Discord notification settings"`
-	Gotify       []Gotify     `koanf:"gotify" json:"gotify,omitempty" doc:"Gotify notification settings"`
-	Matrix       []Matrix     `koanf:"matrix" json:"matrix,omitempty" doc:"Matrix notification settings"`
-	Mattermost   []Mattermost `koanf:"mattermost" json:"mattermost,omitempty" doc:"Mattermost notification settings"`
-	Ntfy         []Ntfy       `koanf:"ntfy" json:"ntfy,omitempty" doc:"Ntfy notification settings"`
-	Pushover     []Pushover   `koanf:"pushover" json:"pushover,omitempty" doc:"Pushover notification settings"`
-	Signal       []Signal     `koanf:"signal" json:"signal,omitempty" doc:"Signal notification settings"`
-	SMTP         []SMTP       `koanf:"smtp" json:"smtp,omitempty" doc:"SMTP notification settings"`
-	Telegram     []Telegram   `koanf:"telegram" json:"telegram,omitempty" doc:"Telegram notification settings"`
-	Webhook      []Webhook    `koanf:"webhook" json:"webhook,omitempty" doc:"Webhook notification settings"`
+	General            General            `koanf:"general" json:"general,omitempty" doc:"Common alert settings"`
+	CamerasHealthcheck CamerasHealthcheck `koanf:"cameras_healthcheck" json:"cameras_check,omitempty" doc:"Camera health check settings"`
+	Quiet              Quiet              `koanf:"quiet" json:"quiet,omitempty" doc:"Alert quiet periods"`
+	Zones              Zones              `koanf:"zones" json:"zones,omitempty" doc:"Allow/Block zones from alerting"`
+	Labels             Labels             `koanf:"labels" json:"labels,omitempty" doc:"Allow/Block labels from alerting"`
+	SubLabels          Labels             `koanf:"sublabels" json:"sublabels,omitempty" doc:"Allow/Block sublabels from alerting"`
+	LicensePlate       LicensePlate       `koanf:"license_plate" json:"license_plate,omitempty" doc:"License plate recognition settings"`
+	AppriseAPI         []AppriseAPI       `koanf:"apprise_api" json:"apprise_api,omitempty" doc:"Apprise API notification settings"`
+	Discord            []Discord          `koanf:"discord" json:"discord,omitempty" doc:"Discord notification settings"`
+	Gotify             []Gotify           `koanf:"gotify" json:"gotify,omitempty" doc:"Gotify notification settings"`
+	Matrix             []Matrix           `koanf:"matrix" json:"matrix,omitempty" doc:"Matrix notification settings"`
+	Mattermost         []Mattermost       `koanf:"mattermost" json:"mattermost,omitempty" doc:"Mattermost notification settings"`
+	Ntfy               []Ntfy             `koanf:"ntfy" json:"ntfy,omitempty" doc:"Ntfy notification settings"`
+	Pushover           []Pushover         `koanf:"pushover" json:"pushover,omitempty" doc:"Pushover notification settings"`
+	Signal             []Signal           `koanf:"signal" json:"signal,omitempty" doc:"Signal notification settings"`
+	SMTP               []SMTP             `koanf:"smtp" json:"smtp,omitempty" doc:"SMTP notification settings"`
+	Telegram           []Telegram         `koanf:"telegram" json:"telegram,omitempty" doc:"Telegram notification settings"`
+	Webhook            []Webhook          `koanf:"webhook" json:"webhook,omitempty" doc:"Webhook notification settings"`
 }
 
 type General struct {
@@ -81,6 +82,14 @@ type General struct {
 	NotifyDetections bool   `koanf:"notify_detections,omitempty" json:"notify_detections" enum:"true,false" doc:"Enable notifications on detection (For app mode: reviews)" default:"false"`
 	RecheckDelay     int    `koanf:"recheck_delay" json:"recheck_delay,omitempty" default:"0" doc:"Delay before re-checking event details from Frigate"`
 	AudioOnly        string `koanf:"audio_only" json:"audio_only,omitempty" enum:"allow,drop" doc:"Allow/Drop events that only contain audio detections" default:"allow"`
+}
+
+type CamerasHealthcheck struct {
+	Enabled   bool     `koanf:"enabled,omitempty"  json:"enabled" enum:"true,false" doc:"Enable camera health checks" default:"false"`
+	Period    int      `koanf:"period,omitempty" json:"period" doc:"Health check period in seconds" default:"10"`
+	Threshold int      `koanf:"threshold,omitempty" json:"threshold" doc:"Health check failure threshold" default:"3"`
+	Exclude   []string `koanf:"exclude,omitempty" json:"exclude" doc:"List of cameras to exclude from health checks"`
+	Include   []string `koanf:"include,omitempty" json:"include" doc:"List of cameras to include in health checks"`
 }
 
 type LicensePlate struct {

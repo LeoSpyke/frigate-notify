@@ -50,6 +50,13 @@ var DefaultConfig Config = Config{
 			RecheckDelay:     0,
 			AudioOnly:        "allow",
 		},
+		CamerasHealthcheck: models.CamerasHealthcheck{
+			Enabled:   false,
+			Period:    10,
+			Threshold: 3,
+			Exclude:   nil,
+			Include:   nil,
+		},
 		Quiet: models.Quiet{
 			Start: "",
 			End:   "",
