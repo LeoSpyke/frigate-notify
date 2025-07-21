@@ -86,10 +86,11 @@ type General struct {
 
 type CamerasHealthcheck struct {
 	Enabled   bool     `koanf:"enabled,omitempty"  json:"enabled" enum:"true,false" doc:"Enable camera health checks" default:"false"`
-	Period    int      `koanf:"period,omitempty" json:"period" doc:"Health check period in seconds" default:"10"`
-	Threshold int      `koanf:"threshold,omitempty" json:"threshold" doc:"Health check failure threshold" default:"3"`
-	Exclude   []string `koanf:"exclude,omitempty" json:"exclude" doc:"List of cameras to exclude from health checks"`
-	Include   []string `koanf:"include,omitempty" json:"include" doc:"List of cameras to include in health checks"`
+	Period    int      `koanf:"period,omitempty" json:"period" doc:"Seconds between every healthcheck round" default:"10"`
+	Interval  int      `koanf:"interval,omitempty" json:"interval" doc:"Seconds between every healthcheck attempt in the same round" default:"3"`
+	Threshold int      `koanf:"threshold,omitempty" json:"threshold" doc:"Healthcheck failure/success threshold" default:"3"`
+	Exclude   []string `koanf:"exclude,omitempty" json:"exclude" doc:"List of cameras to exclude from health checks. Mutually exclusive with 'include'"`
+	Include   []string `koanf:"include,omitempty" json:"include" doc:"List of cameras to include in health checks. Mutually exclusive with 'exclude'"`
 }
 
 type LicensePlate struct {
